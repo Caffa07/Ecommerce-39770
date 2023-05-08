@@ -1,4 +1,4 @@
-const fs = require("fs")
+import fs from "fs"
 
 
 class ProductManager {
@@ -37,14 +37,18 @@ async addProduct({name,model,talle,carts}) {
     }
 
   }
-  async getProducById(id){
-    let produc = this.products.find(each=>each.id===id)
-    for (let prop in id){
-        produc[prop] = id[prop]
-    }
-    console.log("produc " + id)
-     return "produc " + id
+  read_products(){
+    console.log(this.products)
+    return this.products
   }
+  getProducById(id){
+    let produc = this.products.find(each=>each.id===id)
+        console.log(produc)
+        return produc
+    
+  }
+
+
   async updateProducts(id,data){
     try{
         let product = this.getProducById(id)
@@ -59,23 +63,41 @@ async addProduct({name,model,talle,carts}) {
         return "error not product"
     }
   }
+
+
+  async deleteProduct(id){
+    try{
+        this.products = this.products.filter(each=>each.id==id)
+        let data_json = JSON.stringify(this.products,null,2)
+        await fs.promises.writeFiles(this.path,data_json)
+        console.log("delete product " + id)
+        return "delete produc " + id
+    } catch(error){
+        return "error"
+    }
+  }
 }
-async function manager(){
-    let manager = new ProductManager("./data/data.json")
-//    await manager.addProduct({name:"Adidas", model:"Sport",talle:"39",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"38",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"37",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"40",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"43",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"45",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"44",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"36",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"39",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"42",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"41",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"40",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Sport",talle:"45",carts:[]})
-//    await manager.addProduct({name:"Adidas",model:"Urbano",talle:"38",carts:[]})
-   await manager.getProducById(11)
+
+
+
+let manager = new ProductManager("./data/data.json")
+
+async function manage(){
+   await manager.addProduct({name:"Adidas", model:"Sport",talle:"39",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"38",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"37",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"40",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"43",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"45",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"44",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"36",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"39",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"42",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"41",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"40",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Sport",talle:"45",carts:[]})
+   await manager.addProduct({name:"Adidas",model:"Urbano",talle:"38",carts:[]})
+   await manager.getProducById(9)
 }
-manager()
+//manage()
+export default manager
