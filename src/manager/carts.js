@@ -60,6 +60,21 @@ async addCart({name,user}) {
           return null
       }
   }
+  async delete_cart(id){
+    try{
+        let cart = this.cart.find(each.id===id)
+        if(cart){
+            this.cart.filter(each=>each.id!==id)
+            let data_json = JSON.stringify(this.cart,null,2)
+            await fs.promises.writeFile(this.path,data_json)
+            console.log("delete cart:" + id)
+        }
+        console.log("not found")
+        return null
+    }catch(error){
+        return null
+    }
+  }
 }
 
 

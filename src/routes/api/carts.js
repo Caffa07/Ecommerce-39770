@@ -53,3 +53,17 @@ router.put("/:pid", async(req,res,next)=>{
         next(error)
     }
 })
+
+router.delete("/:pid",async(req,res,next)=>{
+    try {
+        let id = Number(req.params.pid)
+        let response = await manager.delete_cart(id)
+        if(response===200) {
+            return res.json({status:200, message: "cart" + id + "delete"})
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
+export default router
