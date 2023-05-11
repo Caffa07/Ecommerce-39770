@@ -78,6 +78,6 @@ async addCart({name,user}) {
 }
 
 
-let managerCarts = new cartManager("./data/cart.json")
+let manager = new cartManager("./src/data/cart.json")
 
-export default managerCarts
+export default manager

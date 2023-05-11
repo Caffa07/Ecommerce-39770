@@ -75,6 +75,6 @@ async addProduct({name,model,talle,carts}) {
     }
   }
 }
-let manager = new ProductManager("./data/data.json")
+let manager = new ProductManager("./src/data/product.json")
 
 export default manager

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import manager from "./../../manager/carts"
+import manager from "./../../manager/carts.js"
 
 
 const router = Router()
@@ -28,7 +28,7 @@ router.get("/", async(req,res,next)=>{
     }
 })
 
-router.get("/:pid", async(req,res,next)=>{
+router.get("/:id", async(req,res,next)=>{
     try{
         let id = Number(req.params.pid)
         let cart = manager.getCartsById(id)
@@ -40,7 +40,7 @@ router.get("/:pid", async(req,res,next)=>{
         next(error)
     }
 })
-router.put("/:pid", async(req,res,next)=>{
+router.put("/:id", async(req,res,next)=>{
     try {
         let id = Number(req.params.pid)
         let data = req.body
